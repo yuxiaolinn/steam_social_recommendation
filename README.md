@@ -248,10 +248,7 @@ steam-gnn-recommendation/
 ### 2. 混合边权重公式
 结合乘法核心权重（游戏时长 × 情感）和加法质量奖励，平衡严格要求与质量激励。
 
-### 3. 向量化数据处理
-避免iterrows()的陷阱，使用pandas merge操作，确保数据类型一致性并提高处理速度。
-
-### 4. 多维特征融合
+### 3. 多维特征融合
 整合基于NLP分析的主题特征和基于用户活动的行为特征。
 
 ## 🐛 故障排除
@@ -265,10 +262,6 @@ steam-gnn-recommendation/
 **问题**：ID数据类型不匹配
 - **解决方案**：在读取CSV时指定正确的dtype或使用字符串→int64转换
 - **代码**：`pd.read_csv(file, dtype={'author_steamid': 'int64', 'appid': 'int64'})`
-
-**问题**：训练时内存不足
-- **解决方案**：使用GPU、减小批次大小或采样边
-- **提示**：使用 `nvidia-smi` 监控GPU内存
 
 ## 📚 依赖库
 
@@ -295,7 +288,7 @@ tqdm>=4.65.0
 
 ## 🔬 数据来源
 
-数据集基于Steam用户评论，具有以下特点：
+数据集基于Steam近两周活跃的用户评论，具有以下特点：
 
 - **评论时期**：近2周活跃用户
 - **语言**：仅英文评论
@@ -322,80 +315,14 @@ tqdm>=4.65.0
 - **边保留率**：100%（23,077/23,077）
 - **用户覆盖率**：100%（20,001/20,001）
 - **游戏覆盖率**：100%（734/734）
-- **稀疏度**：0.1572%（推荐系统的健康水平）
-
-## 🎨 可视化示例
-
-运行可视化脚本生成图表：
-
-```python
-python visualize_results.py
-```
-
-将创建：
-1. **性能概览**：AUC/PR-AUC分数和图统计
-2. **边权重分析**：分布和改进指标
-3. **特征分析**：用户/游戏特征分布和相关性
-4. **图结构**：网络拓扑和连接模式
-5. **总结信息图**：完整系统概览
+- **稀疏度**：0.1572%
 
 ## 🔮 未来改进方向
 
 ### 模型增强
 - [ ] 实现图注意力网络（GAT）引入注意力机制
-- [ ] 添加时间动态特征实现动态推荐
-- [ ] 多任务学习（评分预测+推荐）
 - [ ] 冷启动问题处理（新用户/新游戏）
-
-### 特征工程
-- [ ] 添加游戏类型信息
-- [ ] 纳入用户人口统计数据
-- [ ] 整合社交网络特征
-- [ ] 时间序列特征（游戏模式随时间变化）
-
-### 系统优化
-- [ ] 小批次训练支持更大数据集
-- [ ] 模型压缩和量化
-- [ ] 分布式训练支持
-- [ ] 实时推理优化
-
-## 📝 引用
-
-如果您在研究中使用此代码，请引用：
-
-```bibtex
-@software{steam_gnn_recommendation,
-  title = {Steam GNN Recommendation System},
-  author = {Yu Xiaolin},
-  year = {2025},
-  url = {https://github.com/yourusername/steam-gnn-recommendation}
-}
-```
-
-## 🤝 贡献
-
-欢迎贡献！请随时提交Pull Request。
-
-1. Fork本仓库
-2. 创建特性分支（`git checkout -b feature/AmazingFeature`）
-3. 提交更改（`git commit -m 'Add some AmazingFeature'`）
-4. 推送到分支（`git push origin feature/AmazingFeature`）
-5. 开启Pull Request
-
-## 📄 许可证
-
-本项目采用MIT许可证 - 详见 [LICENSE](LICENSE) 文件。
-
-## 🙏 致谢
-
-- **PyTorch Geometric** 团队提供的优秀GNN库
-- **Steam** 提供评论数据平台
-- **Hugging Face** 提供transformers库用于主题分析
-- **VADER** 情感分析工具
-
-## 📧 联系方式
-
-如有问题或反馈，请在GitHub上提交issue。
+- [ ] 加入时间衰减机制
 
 ---
 
