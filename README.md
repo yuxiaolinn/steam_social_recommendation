@@ -59,16 +59,16 @@
 
 ### 数据统计
 
-- **图密度**：0.1572%（推荐系统的典型水平）
+- **图密度**：0.1572%
 - **用户分布**：
-  - 90.9%的用户只玩1个游戏
-  - 6.7%的用户玩2个游戏
-  - 2.4%的用户玩3个以上游戏
-  - 最多：单个用户玩150个游戏
+  - 90.9%的用户只评论1个游戏
+  - 6.7%的用户评论2个游戏
+  - 2.4%的用户评论3个以上游戏
+  - 最多：单个用户评论150个游戏
 - **游戏热度**：
-  - 平均：每个游戏31.44个用户
-  - 中位数：每个游戏2个用户
-  - 最多：最热门游戏有3,874个用户
+  - 平均：每个游戏31.44个用户评论
+  - 中位数：每个游戏2个用户评论
+  - 最多：最热门游戏有3,874个用户评论
 
 ## 🔧 特征增强
 
@@ -102,7 +102,7 @@
 - `helpfulness`：有用投票比例
 - `quality_norm = 0.5 × review_quality + 0.5 × helpfulness`
 
-### 2. 用户特征（26维）
+### 2. 用户特征（10维）
 
 **主题偏好**（4维）：
 - `music_sound_normalized`：音乐/音效偏好
@@ -118,7 +118,7 @@
 - `review_helpfulness`：评论平均有用性
 - `avg_review_length`：平均评论长度
 
-### 3. 游戏特征（14维）
+### 3. 游戏特征（10维）
 
 **主题特征**（4维）：
 - `music_sound`、`story_narrative`、`gameplay_mechanics`、`visuals_graphics`
@@ -128,94 +128,8 @@
 - `review_count`：评论数量
 - `avg_playtime`：所有用户的平均游戏时长
 - `helpfulness_score`：评论平均有用性
-- `unique_users`：唯一用户数
+- `unique_users`：用户数
 - `top_topic_keywords`：评论中的关键主题词
-
-## 🚀 快速开始
-
-### 环境要求
-
-```bash
-pip install torch torch-geometric pandas numpy scikit-learn matplotlib seaborn tqdm
-```
-
-### 安装
-
-```bash
-git clone https://github.com/yourusername/steam-gnn-recommendation.git
-cd steam-gnn-recommendation
-```
-
-### 训练流程
-
-#### 步骤1：增强特征和边权重
-
-```python
-# 运行特征增强脚本
-python adjust_edge_weights_features.py
-```
-
-生成文件：
-- `enhanced_edge_weights.csv`：使用混合公式计算的增强边权重
-- `enhanced_user_features.csv`：包含行为数据的增强用户特征
-- `enhanced_game_features.csv`：包含聚合统计的增强游戏特征
-
-#### 步骤2：训练GNN模型
-
-```python
-# 训练GNN模型
-python train_gnn_vectorized.py
-```
-
-程序将：
-1. 加载增强数据
-2. 创建二部图结构
-3. 训练GNN模型（100轮）
-4. 在测试集上评估
-5. 生成可视化图表
-6. 保存训练好的模型到 `steam_gnn_model.pth`
-
-### 生成推荐
-
-```python
-import torch
-from train_gnn_vectorized import SteamGNN
-
-# 加载训练好的模型
-model = SteamGNN(4, 4, hidden_dim=64, num_layers=2)
-model.load_state_dict(torch.load('steam_gnn_model.pth'))
-model.eval()
-
-# 获取嵌入向量
-with torch.no_grad():
-    embeddings = model(data.x, data.edge_index, data.edge_weight, num_users)
-
-# 为用户推荐游戏
-def recommend_games(user_id, top_k=10):
-    user_idx = user_to_idx.get(user_id)
-    if user_idx is None:
-        return []
-    
-    user_emb = embeddings[user_idx]
-    scores = []
-    
-    for game_id, game_idx in game_to_idx.items():
-        game_emb = embeddings[game_idx]
-        score = model.predict_interaction(
-            user_emb.unsqueeze(0), 
-            game_emb.unsqueeze(0)
-        )
-        scores.append((game_id, score.item()))
-    
-    # 按分数排序并返回top-k
-    scores.sort(key=lambda x: x[1], reverse=True)
-    return scores[:top_k]
-
-# 使用示例
-recommendations = recommend_games(76561197985437504, top_k=10)
-for game_id, score in recommendations:
-    print(f"游戏 {game_id}: 推荐分数 {score:.4f}")
-```
 
 ## 📈 性能指标
 
