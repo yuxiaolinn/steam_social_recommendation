@@ -252,7 +252,6 @@ insights：
 ### 6. 活跃用户网络
 <img width="4245" height="4435" alt="active_user_network" src="https://github.com/user-attachments/assets/8ddb6f9d-c265-46db-9a6c-db01fe12deaa" />
 兴趣多样性：可能涵盖多种游戏类型
-价值：这类用户是推荐系统的优质训练样本
 
 ### 7. 高权重交互网络
 <img width="4710" height="4914" alt="high_weight_network" src="https://github.com/user-attachments/assets/e836408a-3631-4202-9d70-fcc896fea668" />
