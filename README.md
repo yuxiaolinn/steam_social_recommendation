@@ -1,8 +1,6 @@
-# steam_social_recommendation
-
 # Steam游戏推荐GNN系统
 
-基于图神经网络的Steam游戏推荐系统，实现了 **98.70% AUC** 和 **99.74% PR-AUC** 的优异性能。
+基于图神经网络的Steam游戏推荐系统，实现了 **98.70% AUC** 和 **99.74% PR-AUC** 的优异性能。使用 transformer 模型微调分析游戏评论，提取主题词，做特征分析。
 
 
 ## 📖 项目简介
