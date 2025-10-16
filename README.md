@@ -218,27 +218,48 @@ steam-gnn-recommendation/
 
 ## 📊 结果可视化
 
-系统生成全面的可视化图表，包括：
+### 1. 整体网络结构
+<img width="4710" height="4914" alt="network_overview" src="https://github.com/user-attachments/assets/7293bb44-826c-42b4-967e-153e1c6cae75" />
 
-1. **模型性能**
-   - AUC和PR-AUC柱状图
-   - 训练损失曲线
-   - 预测分布直方图
+### 2. 度分布分析
+<img width="4763" height="1776" alt="degree_distribution" src="https://github.com/user-attachments/assets/df5e3d32-4798-490a-8a29-7e36de737c50" />
 
-2. **边权重分析**
-   - 原始vs增强权重对比
-   - 权重分布统计
-   - 权重改进分析
+用户平均评论游戏数: 1.15 
+游戏平均用户评论数: 31.44
+长尾效应明显：少数游戏占据大部分用户评论
 
-3. **特征分析**
-   - 用户主题偏好分布
-   - 游戏特征分布
-   - 特征相关性热力图
+### 3. 交互热力图
+<img width="3637" height="3628" alt="interaction_heatmap" src="https://github.com/user-attachments/assets/07aff835-366b-4d73-91d0-f49f5fca77c4" />
 
-4. **图结构**
-   - 用户-游戏网络可视化
-   - 节点度分布
-   - 边权重与流行度关系
+密集区域：左上角或特定区域显示高交互
+稀疏模式：大部分区域为0或低值
+
+insights：
+热门游戏被核心用户频繁游玩
+存在明显的"主流游戏-核心用户"群体
+
+### 4. 用户相似网络
+<img width="4245" height="4435" alt="user_similarity_network" src="https://github.com/user-attachments/assets/cf0f098f-b248-460a-bf5a-a9495700926a" />
+
+核心节点：玩很多游戏的大玩家（节点大）
+紧密连接：玩相似游戏的用户群体
+可用于好友推荐、游戏社群发现，但没有steam社交数据作为验证。
+
+### 5. 热门游戏网络
+<img width="4245" height="4435" alt="popular_game_network" src="https://github.com/user-attachments/assets/658082c1-036f-4c4d-ac0a-ae69b68310d3" />
+用户关联：玩同一游戏的用户可能形成社群
+
+### 6. 活跃用户网络
+<img width="4245" height="4435" alt="active_user_network" src="https://github.com/user-attachments/assets/8ddb6f9d-c265-46db-9a6c-db01fe12deaa" />
+兴趣多样性：可能涵盖多种游戏类型
+价值：这类用户是推荐系统的优质训练样本
+
+### 7. 高权重交互网络
+<img width="4710" height="4914" alt="high_weight_network" src="https://github.com/user-attachments/assets/e836408a-3631-4202-9d70-fcc896fea668" />
+深度关系识别：
+强连接：用户与游戏的深度互动关系
+质量信号：比单纯的数量关系更有价值
+推荐优先级：这些连接模式应该被重点学习
 
 ## 🎓 核心创新
 
